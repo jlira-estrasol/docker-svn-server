@@ -14,7 +14,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 	org.label-schema.vendor="garethflowers" \
 	org.label-schema.version="1.2.2"
 
-CMD [ "/usr/bin/svnserve", "--daemon", "--foreground", "--root", "/var/opt/svn" ]
+CMD [ "/usr/bin/svnserve", "--daemon", "--log-file=/var/log/svnserve.log", "--foreground", "--root", "/var/opt/svn" ]
 EXPOSE 3690
 HEALTHCHECK CMD netstat -ln | grep 3690 || exit 1
 VOLUME [ "/var/opt/svn" ]
