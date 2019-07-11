@@ -5,7 +5,7 @@
 # Fecha: 11/07/19
 # Descripcion: Elimina un respaldo anterior de svn y crea uno nuevo
 # Uso: ./dump_svn_repo.sh [repo_dir] [backup_dir]
-#      ./dump_svn_repo.sh /var/opt/svn/repo_name /var/opt/svn/repo_name/backup/
+#      ./dump_svn_repo.sh /var/opt/svn/repo_name /var/opt/svn/repo_name/backup
 #=============================================================================
 
 if [ "$#" ! -eq 0 ]; then
@@ -19,7 +19,7 @@ else
    BACKUP_DIR=$2
 fi
 
-BACKUP_FILE=$BACKUP_DIR"/repo/svn_dump-$(date +"\%Y-\%m-\%d-\%T").dmp.gz" 
+BACKUP_FILE=$BACKUP_DIR"/repo/svn_dump-$(date +"%Y-%m-%d-%T").dmp.gz" 
 if [ -d $BACKUP_DIR/repo ]; then
       rm -Rf $BACKUP_DIR/repo
    fi
