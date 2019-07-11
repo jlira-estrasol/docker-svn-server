@@ -14,7 +14,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
 	org.label-schema.vendor="jlira-estrasol" \
 	org.label-schema.version="1.2.2"
 
-WORKDIR /usr
+WORKDIR /
 ADD cron_svn_backup.txt cron_svn_backup.txt
 ADD dump_svn_repo.sh dump_svn_repo.sh
 
@@ -22,11 +22,11 @@ CMD [ "/usr/bin/svnserve", "--daemon", "--log-file=/var/log/svnserve.log", "--fo
 EXPOSE 3690
 HEALTHCHECK CMD netstat -ln | grep 3690 || exit 1
 VOLUME [ "/var/opt/svn" ]
-WORKDIR /var/opt/svn
-
 RUN apk add --no-cache subversion==1.11.1-r0
 
-RUN chmod 755 /dump_svn_repo.sh
+WORKDIR /
+RUN chmod 755 dump_svn_repo.sh
 RUN /usr/bin/crontab /cron_svn_backup.txt
+WORKDIR /var/opt/svn
 #RUN /usr/sbin/crond -f
 #CMD ["/usr/sbin/crond", "-f"]
