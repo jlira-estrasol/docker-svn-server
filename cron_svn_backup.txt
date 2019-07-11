@@ -1,0 +1,1 @@
+0 5 * * * /dump_svn_repo.sh /var/opt/svn/cmmi /var/opt/svn/cmmi/backup/
