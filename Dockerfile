@@ -22,11 +22,13 @@ CMD [ "/usr/bin/svnserve", "--daemon", "--log-file=/var/log/svnserve.log", "--fo
 EXPOSE 3690
 HEALTHCHECK CMD netstat -ln | grep 3690 || exit 1
 VOLUME [ "/var/opt/svn" ]
-RUN apk add --no-cache subversion==1.11.1-r0
+RUN apk add --no-cache subversion==1.11.1-r0 \
+						tzdata
+RUN cp /usr/share/zoneinfo/America/Mexico_City  /etc/localtime
+RUN apk del tzdata
 
 WORKDIR /
 RUN chmod 755 dump_svn_repo.sh
 RUN /usr/bin/crontab /cron_svn_backup.txt
+CMD ["/usr/sbin/crond", "-f"]
 WORKDIR /var/opt/svn
-#RUN /usr/sbin/crond -f
-#CMD ["/usr/sbin/crond", "-f"]
